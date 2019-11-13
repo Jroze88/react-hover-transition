@@ -15,10 +15,10 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      item1: false,
-      item2: false,
-      item3: false,
-      item4: false,
+      'item1': false,
+      'item2': false,
+      'item3': false,
+      'item4': false,
       showThis: false
     }
 
@@ -27,14 +27,16 @@ class App extends React.Component {
 
 
   mouseEnter = (ev) => {
+ 
     this.setState({
-      showThis: true
+      item1: true
     })
+
   }
 
   mouseLeave = (ev) => {
     this.setState({
-      showThis: false
+      item1: false
     })
   }
 
@@ -42,8 +44,7 @@ render() {
 
 
   const items = ['First item', 'second item', 'third item', 'fourth item']
-
-  let showThis = this.state.showThis
+  let state = this.state
 
   return (
 
@@ -53,14 +54,14 @@ render() {
 
     {items.map((el, i) => {
 
-      return <div className="img-with-text">
+      return <div key = {i} className="img-with-text">
     <img src= {`./images/${i}.png`} className='hoverimage' value={`item${i}`} onMouseEnter ={this.mouseEnter} onMouseLeave = {this.mouseLeave} style={{maxHeight: '75px', width: 'auto'}} />
     <CSSTransition
       key={i}
       // classNames={`${i}sub`}
       classNames="sub"
       // in={this.state[`item${i}`]}
-      in={showThis}
+      in={state[`item${i}`]}
       timeout={1300}
       >
       <p  className='title sub'>{el}</p>
