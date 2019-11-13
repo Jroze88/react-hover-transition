@@ -18,7 +18,7 @@ class App extends React.Component {
       'item1': false,
       'item2': false,
       'item3': false,
-      'item4': false,
+      'item0': false,
       showThis: false
     }
 
@@ -27,17 +27,36 @@ class App extends React.Component {
 
 
   mouseEnter = (ev) => {
+
+    let thisObj = this.state[`${ev.target.getAttribute('value')}`]
+
+ 
+
+    console.log(ev.target.getAttribute('value'))
  
     this.setState({
-      item1: true
+      [`${ev.target.getAttribute('value')}`]: true
+    }, () => {
+      console.log(this.state)
     })
+
 
   }
 
   mouseLeave = (ev) => {
+
+
+
+
+    console.log(ev.target.getAttribute('value'))
+ 
     this.setState({
-      item1: false
+      [`${ev.target.getAttribute('value')}`]: false
+    }, () => {
+      console.log(this.state)
     })
+
+
   }
 
 render() {
@@ -54,14 +73,16 @@ render() {
 
     {items.map((el, i) => {
 
-      return <div key = {i} className="img-with-text">
-    <img src= {`./images/${i}.png`} className='hoverimage' value={`item${i}`} onMouseEnter ={this.mouseEnter} onMouseLeave = {this.mouseLeave} style={{maxHeight: '75px', width: 'auto'}} />
+      let thisI = i
+
+      return <div key = {thisI} className="img-with-text">
+    <img src= {`./images/${thisI}.png`} className='hoverimage' value={`item${thisI}`} onPointerEnter ={this.mouseEnter} onMouseLeave = {this.mouseLeave} style={{maxHeight: '75px', width: 'auto'}} />
     <CSSTransition
-      key={i}
+      key={thisI}
       // classNames={`${i}sub`}
       classNames="sub"
       // in={this.state[`item${i}`]}
-      in={state[`item${i}`]}
+      in={state[`item${thisI}`]}
       timeout={1300}
       >
       <p  className='title sub'>{el}</p>
